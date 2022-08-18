@@ -12,7 +12,7 @@ app.use(cors())
 app.use(express.json())
 
 //Set up initial routes - others in routes folder
-app.use("api/v1/restaurants", restaurants)
+app.use("/api/v1/restaurants", restaurants)
 //Redirect route - * to signify any other route thats not established
 app.use("*", (req, res) => res.status(404).json({error: "oh dear, this route could not be found!"}))
 

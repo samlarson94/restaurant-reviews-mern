@@ -14,9 +14,9 @@ const port = process.env.PORT || 8000
 MongoClient.connect(
     process.env.RESTREVIEWS_DB_URI, 
     {
-        poolSize: 50, // Amount of people who can access at once
-        wtimeout: 2500, //Set timeout for requests
-        useNewUrlParse: true 
+        maxPoolSize: 50, // Amount of people who can access at once
+        wtimeoutMS: 2500, //Set timeout for requests
+        useNewUrlParser: true 
     }
 )
 //Catch any errors in console.log and then exit the process
