@@ -4,6 +4,8 @@ import mongodb from "mongodb"
 //Import and configure dotenv to be able to access environment variables
 import dotenv from "dotenv"
 dotenv.config()
+
+import RestaurantsDAO from "./dao/restaurantsDAO.js"
 //Get access to MongoClient to access database
 const MongoClient = mongodb.MongoClient
 
@@ -26,6 +28,10 @@ MongoClient.connect(
 })
 //Then start up web server after DB has connected without errors
 .then(async client => {
+    // call restaurants DAO injectDB method and pass the client
+        //Makes inital connection to our database
+    await RestaurantsDAO.injectDB(client)
+    //app.listen starts server at specified port
     app.listen(port, () => {
         console.log(`Listening on PORT ${port}`)
     })
