@@ -1,11 +1,15 @@
 //Import Express
 import express from "express"
 
+//Import RestaurantsCtrl method
+import RestaurantsCtrl from "./restaurants.controller.js"
+
 //Import Router
 const router = express.Router()
 
 //Establish test route 
-router.route("/").get((req, res) => res.send("hello world!"))
+    //Call RestaurantsCtrl method as home route
+router.route("/").get((req, res) => res.send(RestaurantsCtrl.apiGetRestaurants))
 //Note - route will start with "/api/v1/restaurants" - start node server and test root route
 
 export default router

@@ -4,8 +4,9 @@ import mongodb from "mongodb"
 //Import and configure dotenv to be able to access environment variables
 import dotenv from "dotenv"
 dotenv.config()
-
+//Import RestaurantsDAO and call methods in server connection to create initial reference to the restaurants colleciton in the database
 import RestaurantsDAO from "./dao/restaurantsDAO.js"
+
 //Get access to MongoClient to access database
 const MongoClient = mongodb.MongoClient
 
