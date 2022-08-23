@@ -1,5 +1,7 @@
 //Set up Data Access Object
-
+import mongodb from "mongodb"
+const ObjectId = mongodb.ObjectID
+// const ObjectId = mongodb.ObjectID
 //Create a variable to store a reference to our database
 let restaurants
 
@@ -33,7 +35,7 @@ export default class RestaurantsDAO {
         //Create conditional to assign selected filter to query
         if (filters) {
             if ("name" in filters) {
-                query = {$text: {$search: filters["name"]}}
+                query = { $text: { $search: filters["name"] } }
                     //Make sure to complete additional MongoDB text configuration.
             } else if ("cuisine" in filters) {
                 query = {"cuisine": { $eq: filters["cuisine"]}}
@@ -59,7 +61,9 @@ export default class RestaurantsDAO {
         
         try {
             const restaurantsList = await displayCursor.toArray()
-            const totalNumRestaurants = page === 0 ? await restaurants.countDocuments(query) : 0
+            const totalNumRestaurants = await restaurants.countDocuments(query)
+
+            return { restaurantsList, totalNumRestaurants }
         } catch (e) {
             console.error(
                 `Unable to convert cursor to array or problem counting documents, ${e}`

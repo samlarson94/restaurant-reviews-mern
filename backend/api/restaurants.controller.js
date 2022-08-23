@@ -1,5 +1,5 @@
 //Import RestaurantsDAO
-import RestaurantsDAO from "../dao/restaurantsDAO";
+import RestaurantsDAO from "../dao/restaurantsDAO.js"
 
 export default class RestaurantsController {
     //Call apiGetRestaurants and establish url query string
@@ -32,13 +32,13 @@ export default class RestaurantsController {
 
         //Create a response to be sent back when the API URL is called
             //Establish key value pairs and send response as a json object
-        let response = {
-            restaurants: restaurantsList,
-            page: page,
-            filters: filters,
-            entries_per_page: restaurantsPerPage,
-            totalresults: totalNumRestaurants,
-        }
+            let response = {
+                restaurants: restaurantsList,
+                page: page,
+                filters: filters,
+                entries_per_page: restaurantsPerPage,
+                total_results: totalNumRestaurants,
+              }
         //send response
         res.json(response)
     }
