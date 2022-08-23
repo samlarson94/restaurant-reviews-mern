@@ -127,6 +127,8 @@ export default class RestaurantsDAO {
           throw e
         }
       }
+      //Route Example Endpoint: http://localhost:5001/api/v1/restaurants/id/5eb3d668b31de5d588f42931
+        //Pass in /id/<restaurant's _id> to see restaurant information and corresponding reviews in an array.
     
     //GET CUISINES
       static async getCuisines() {
@@ -142,5 +144,5 @@ export default class RestaurantsDAO {
           return cuisines
         }
       }
-      //Route Endpoint: http://localhost:5001/api/v1/restaurants/cuisine
+         //Route Example Endpoint: http://localhost:5001/api/v1/restaurants/cuisine
     }
