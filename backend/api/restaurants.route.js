@@ -12,7 +12,7 @@ const router = express.Router()
 router.route("/").get(RestaurantsCtrl.apiGetRestaurants)
     //Note - route will start with "/api/v1/restaurants" - start node server and test root route
 //Get all restaurants with a specific ID & All of that Restaurant's Reviews
-router.route("/id/:id").get(RestaurantsCtrl.apiGetRestaurantsById)
+router.route("/id/:id").get(RestaurantsCtrl.apiGetRestaurantById)
 //Get a list of specific cuisines (Will populate Front End Drop Down Menu)
 router.route("/cuisine").get(RestaurantsCtrl.apiGetRestaurantCuisines)
 
