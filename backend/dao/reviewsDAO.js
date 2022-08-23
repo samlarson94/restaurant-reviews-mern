@@ -86,5 +86,11 @@ export default class ReviewsDAO {
       return { error: e }
     }
   }
-
+    //Example of JSON Body in DELETE Request
+    // {
+    //     "_id": "6305210a2f1ba7837b039588", (Review ObjectId)
+    //     "user_id": "12345" (UserId)
+    // }
+    // Endpoint: http://localhost:5001/api/v1/restaurants/review?id=6305210a2f1ba7837b039588
+            //Use query 'review?id=<reviewId> to delete
 }

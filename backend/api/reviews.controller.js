@@ -3,6 +3,7 @@ import ReviewsDAO from "../dao/reviewsDAO.js"
 
 //Create ReviewsController Class with Post, Update, and Delete Methods
 export default class ReviewsController {
+//POST REVIEW
   static async apiPostReview(req, res, next) {
     try {
     //Retrieve information directly from the body of the request
@@ -28,6 +29,7 @@ export default class ReviewsController {
     }
   }
 
+  //UPDATE (PUT) REVIEW
   static async apiUpdateReview(req, res, next) {
     try {
     //Get the id of the review, text, and new date
@@ -60,6 +62,7 @@ export default class ReviewsController {
     }
   }
 
+//DELETE REVIEW
   static async apiDeleteReview(req, res, next) {
     try {
     //For delete, use an url query parameter for reviewId
