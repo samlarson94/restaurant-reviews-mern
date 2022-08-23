@@ -1,6 +1,7 @@
-//Set up Data Access Object
+//Import mongodb and get access to ObjectID (to convert string to a MongoDB object)
 import mongodb from "mongodb"
-const ObjectId = mongodb.ObjectID
+const ObjectId = mongodb.ObjectId
+
 // const ObjectId = mongodb.ObjectID
 //Create a variable to store a reference to our database
 let restaurants
@@ -68,6 +69,77 @@ export default class RestaurantsDAO {
             console.error(
                 `Unable to convert cursor to array or problem counting documents, ${e}`
             )
+            return { restaurantsList: [], totalNumRestaurants: 0 }
         }
     }
-}
+
+    //GET RESTAURANT BY ID
+    static async getRestaurantByID(id) {
+        try {
+        //Create pipeline to match different collections together
+          const pipeline = [
+            {
+            //Match the id of a certain restaurant
+                $match: {
+                    _id: new ObjectId(id),
+                },
+            },
+                //Lookup other items (reviews) and add to the $match result.
+                    //Note: $lookup is part of the MongoDB aggregation pipeline
+                        //Documents enter a multi-stage pipeline that transforms the documents into aggregated results
+                  {
+                      $lookup: {
+                        //From the reviews collection, we create a pipeline that will match the restaurant id 
+                            // and find all the reviews that match the restaurant id
+                          from: "reviews",
+                          let: {
+                              id: "$_id",
+                          },
+                          pipeline: [
+                              {
+                                  $match: {
+                                      $expr: {
+                                          $eq: ["$restaurant_id", "$$id"],
+                                      },
+                                  },
+                              },
+                              {
+                                  $sort: {
+                                      date: -1,
+                                  },
+                              },
+                          ],
+                          //We then set the aggregated data to be called "reviews" as the result
+                          as: "reviews",
+                      },
+                  },
+                  //Add a new field called "reviews" that will populate in results
+                  {
+                      $addFields: {
+                          reviews: "$reviews",
+                      },
+                  },
+              ]
+        //Collect all results together by aggregating the pipeline and return the restaurant w/ reviews connected.
+          return await restaurants.aggregate(pipeline).next()
+        } catch (e) {
+          console.error(`Something went wrong in getRestaurantByID: ${e}`)
+          throw e
+        }
+      }
+    
+    //GET CUISINES
+      static async getCuisines() {
+        //Assign cuisines to take in multiple values as an array
+        let cuisines = []
+        try {
+        //Use distinct method to search restaurants and find distinct cuisine types
+            //By using .distinct, we will limit our search to finding only one of each distinct cuisine type
+          cuisines = await restaurants.distinct("cuisine")
+          return cuisines
+        } catch (e) {
+          console.error(`Unable to get cuisines, ${e}`)
+          return cuisines
+        }
+      }
+    }
