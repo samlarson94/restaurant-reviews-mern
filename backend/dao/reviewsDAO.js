@@ -44,7 +44,7 @@ export default class ReviewsDAO {
     // }
     //Route: http://localhost:5001/api/v1/restaurants/review
 
-//UPDATE REVIEW
+//UPDATE (PUT) REVIEW
   static async updateReview(reviewId, userId, text, date) {
     try {
       const updateResponse = await reviews.updateOne(
@@ -60,6 +60,15 @@ export default class ReviewsDAO {
       return { error: e }
     }
   }
+    //Example of JSON body in PUT Request
+    // {
+    //     "review_id":"6305210a2f1ba7837b039588",
+    //     "name":"Sammy L",
+    //     "user_id":"12345",
+    //     "text":"Actually, jk. Food wasn't great.."
+    // }
+    //Endpoint: http://localhost:5001/api/v1/restaurants/review
+
 //DELETE REVIEW 
   static async deleteReview(reviewId, userId) {
 
